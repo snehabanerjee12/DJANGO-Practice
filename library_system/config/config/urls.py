@@ -15,8 +15,14 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('catalog/', include('catalog.urls')),
 ]
+
+
+"""
+What include() does: it says "any URL starting with catalog/, hand off the rest of the path to catalog/urls.py." So /catalog/books/ matches path('books/', ...) inside catalog's own file. This is exactly the delegation pattern I mentioned — the root file doesn't need to know the details of each app's URLs.
+"""
